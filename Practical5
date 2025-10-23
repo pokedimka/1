@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+int main() {
+	setlocale(0, "");
+	cout << "Добро пожаловать в калькулятор" << endl;
+	cout << "Введите число..." << endl;
+	float number1;
+	float number3;
+	int number2;
+	float otvet;
+
+	cin >> number1;
+
+	while (true) {
+		cout << "Введите знак." << endl;
+		cout << "1.Знак + " << endl;
+		cout << "2.Знак -" << endl;
+		cout << "3.Знак *" << endl;
+		cout << "4.Знак /" << endl;
+		cout << "5.Знак %" << endl;
+		cin >> number2;
+
+		if (number2 == 1) {
+			cout << number1 << "+" << endl;
+			cout << "Введите число." << endl;
+			cin >> number3;
+			cout << number1 << "+" << number3 << endl;
+			float otvet = number1 + number3;
+			cout << number1 << "+" << number3 << "=" << otvet << endl;
+			break;
+
+
+
+
+		}
+		else if (number2 == 2) {
+			cout << number1 << "-" << endl;
+			cout << "Введите число." << endl;
+			cin >> number3;
+			cout << number1 << "-" << number3 << endl;
+			float otvet = number1 - number3;
+			cout << number1 << "-" << number3 << "=" << otvet << endl;
+			break;
+		}
+		else if (number2 == 3) {
+			cout << number1 << "*" << endl;
+			cout << "Введите число." << endl;
+			cin >> number3;
+			cout << number1 << "*" << number3 << endl;
+			float otvet = number1 * number3;
+			cout << number1 << "*" << number3 << "=" << otvet << endl;
+			break;
+		}
+		else if (number2 == 4) {
+			cout << number1 << "/" << endl;
+			cout << "Введите число." << endl;
+			cin >> number3;
+			if (number3 == 0) {
+				cout << "Ошибка. делить на 0 нельзя!";
+			}
+			else {
+				cout << number1 << "/" << number3 << endl;
+				float otvet = number1 / number3;
+				cout << number1 << "/" << number3 << "=" << otvet << endl;
+				break;
+			}
+		}
+		else if (number2 == 5) {
+			cout << number1 << "%" << endl;
+
+			cout << "Введите число." << endl;
+			cin >> number3;
+			cout << number1 << "+" << number3 << endl;
+			int otvet = (int)number1 % (int)number3;
+			cout << number1 << "%" << number3 << "=" << otvet << endl;
+			break;
+		}
+		else {
+			cout << "Ошибка ввода. Повторите попытку." << endl;
+		}
+	}
+	return 0;
+}
