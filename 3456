@@ -1,24 +1,78 @@
-[ 7 ] Самостоятельная работа | E-
-Тема: [ SWITCH ]
-Работа с конструкцией множественной выборки switch. Написать программу “Календарь”. Программа должна иметь пользовательский интерфейс. При запуске программы пользователю выводится пронумерованное меню со всеми месяцами (январь, февраль и тд):
+#include <iostream>
+using namespace std;
 
-[ + ] Календарь
-[ 1 ] Январь
-[ 2 ] Февраль
-…
-[ + ] Выберите месяц: 2
-
-Программа ожидает ввода номера месяца. После чего, просит пользователя ввести день данного месяца:
-
-[ + ] Выбран месяц - “Февраль”
-[ + ] Выберите день месяца: 21
-
-Итог: программа выводит сообщение:
-
-[ + ] Календарь: 21 февраля.
-
-Требования к программе:
-Все должно быть написано на конструкции switch.
-У каждого switch есть блок default
-Каждый день месяца реализован через отдельный кейс.
-
+int main() {
+    int m, d;
+    
+    cout << "[ + ] Календарь\n";
+    for(int i=1; i<=12; i++) {
+        cout << "[ " << i << " ] ";
+        switch(i) {
+            case 1: cout<<"Январь"; break; case 2: cout<<"Февраль"; break;
+            case 3: cout<<"Март"; break; case 4: cout<<"Апрель"; break;
+            case 5: cout<<"Май"; break; case 6: cout<<"Июнь"; break;
+            case 7: cout<<"Июль"; break; case 8: cout<<"Август"; break;
+            case 9: cout<<"Сентябрь"; break; case 10: cout<<"Октябрь"; break;
+            case 11: cout<<"Ноябрь"; break; case 12: cout<<"Декабрь"; break;
+            default: break;
+        }
+        cout << endl;
+    }
+    
+    cout << "[ + ] Выберите месяц: ";
+    cin >> m;
+    
+    string monthName, monthGen;
+    switch(m) {
+        case 1: monthName="Январь"; monthGen="января"; break;
+        case 2: monthName="Февраль"; monthGen="февраля"; break;
+        case 3: monthName="Март"; monthGen="марта"; break;
+        case 4: monthName="Апрель"; monthGen="апреля"; break;
+        case 5: monthName="Май"; monthGen="мая"; break;
+        case 6: monthName="Июнь"; monthGen="июня"; break;
+        case 7: monthName="Июль"; monthGen="июля"; break;
+        case 8: monthName="Август"; monthGen="августа"; break;
+        case 9: monthName="Сентябрь"; monthGen="сентября"; break;
+        case 10: monthName="Октябрь"; monthGen="октября"; break;
+        case 11: monthName="Ноябрь"; monthGen="ноября"; break;
+        case 12: monthName="Декабрь"; monthGen="декабря"; break;
+        default: cout<<"[ ! ] Ошибка месяца!\n"; return 1;
+    }
+    
+    cout << "[ + ] Выбран месяц - \"" << monthName << "\"\n[ + ] Выберите день: ";
+    cin >> d;
+    
+    bool valid = false;
+    switch(m) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            switch(d) {
+                case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+                case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20:
+                case 21: case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31:
+                    valid=true; break;
+                default: break;
+            } break;
+        case 4: case 6: case 9: case 11:
+            switch(d) {
+                case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+                case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20:
+                case 21: case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30:
+                    valid=true; break;
+                default: break;
+            } break;
+        case 2:
+            switch(d) {
+                case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+                case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20:
+                case 21: case 22: case 23: case 24: case 25: case 26: case 27: case 28:
+                    valid=true; break;
+                default: break;
+            } break;
+        default: break;
+    }
+    
+    if(valid) cout << "[ + ] Календарь: " << d << " " << monthGen << ".\n";
+    else cout << "[ ! ] Ошибка дня!\n";
+    
+    return 0;
+}
