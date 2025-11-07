@@ -1,0 +1,44 @@
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    string r[] = {"Дом","Дорога","Стол","Книга","Ручка","Окно","Город","Машина","Школа","Учитель","Солнце","Вода","Воздух","Земля","Небо"};
+    string e[] = {"house","road","table","book","pen","window","city","car","school","teacher","sun","water","air","earth","sky"};
+    
+    int c;
+    
+    do {
+        cout << "[+] Переводчик\n[1] Русские слова\n[2] Английские слова\n[3] Выйти\nВыберите: ";
+        cin >> c;
+        
+        switch(c) {
+            case 1:
+            case 2:
+                cout << "\n[+] Переводчик \"Список ";
+                cout << (c == 1 ? "русских" : "английских") << " слов\"\n";
+                
+                for(int i = 0; i < 15; i++) 
+                    cout << "[" << i+1 << "] " << (c == 1 ? r[i] : e[i]) << endl;
+                
+                cout << "Выберите номер слова: ";
+                cin >> c;
+                if(c >= 1 && c <= 15)
+                    cout << "[+] Перевод: " << (c == 1 ? r[c-1] : e[c-1]) << " -> " << (c == 1 ? e[c-1] : r[c-1]) << endl;
+                else
+                    cout << "Ошибка!\n";
+                break;
+                
+            case 3:
+                cout << "Выход!\n";
+                break;
+                
+            default:
+                cout << "Ошибка!\n";
+        }
+        cout << endl;
+    } while(c != 3);
+    
+    return 0;
+}
+```
