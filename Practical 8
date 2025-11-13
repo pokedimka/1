@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int choice;
+
+    while (true) {
+        cout << "[+] Переводчик\n[1] Русские слова\n[2] Английские слова\n[3] Выйти\nВыберите: ";
+        cin >> choice;
+
+        if (choice == 3) break;
+
+        string words[2][15] = {
+            {"Дом", "Дорога", "Река", "Стол", "Окно", "Книга", "Рука", "Нога", "Голова", "Вода", "Огонь", "Воздух", "Земля", "Солнце", "Луна"},
+            {"House", "Road", "River", "Table", "Window", "Book", "Hand", "Leg", "Head", "Water", "Fire", "Air", "Earth", "Sun", "Moon"}
+        };
+
+        if (choice == 1 || choice == 2) {
+            int lang = choice - 1;
+            cout << "\n[+] Переводчик\n";
+            for (int i = 0; i < 15; i++) 
+                cout << "[" << i+1 << "] " << words[lang][i] << endl;
+            
+            cout << "Выберите номер слова: ";
+            int word;
+            cin >> word;
+
+            if (word >= 1 && word <= 15) {
+                cout << "[+] Перевод: " << words[lang][word-1] << " → " 
+                     << words[!lang][word-1] << "\n\n";
+            } else {
+                cout << "[!] Неверный номер\n\n";
+            }
+        }
+    }
+    return 0;
+}
