@@ -1,0 +1,58 @@
+#include <iostream>
+#include <set>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    srand(time(0));
+    int choice;
+    
+    while (true) {
+        cout << "\n=== УГАДАЙКА ===\n1. Начать игру\n2. Выйти\nВыбор: ";
+        cin >> choice;
+        
+        if (choice == 2) {
+            cout << "Выход...";
+            break;
+        }
+        if (choice != 1) continue;
+        
+        // Генерация чисел
+        set<int> nums;
+        while (nums.size() < 3) nums.insert(rand() % 10 + 1);
+        
+        set<int> guessed;
+        int attempts = 5;
+        
+        while (attempts > 0 && guessed.size() < 3) {
+            cout << "\nУгадано: " << guessed.size() << "/3\nПопыток: " << attempts << "\nЧисло: ";
+            int g;
+            cin >> g;
+            
+            if (g < 1 || g > 10) {
+                cout << "Число от 1 до 10!";
+                continue;
+            }
+            
+            if (nums.count(g) && !guessed.count(g)) {
+                cout << "Угадали!";
+                guessed.insert(g);
+            } else {
+                cout << "Не угадали!";
+            }
+            attempts--;
+        }
+        
+        // Результат
+        cout << "\nРезультат: ";
+        if (guessed.size() == 3) {
+            cout << "Победа!";
+        } else {
+            cout << "Проигрыш. Числа: ";
+            for (int n : nums) cout << n << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
