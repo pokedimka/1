@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    
+    while (true) {
+        cout << "[+] Введите число: ";
+        cin >> n;
+        
+        if (n == 0) {
+            cout << "Выход из программы." << endl;
+            break;
+        }
+        
+        if (n < 1 || n > 15) {
+            cout << "Ошибка: число должно быть от 1 до 15." << endl;
+            continue;
+        }
+        
+        int i = 1;
+        while (i <= n) {
+            cout << "[+] Цикл отработка, Курт: " << i << "." << endl;
+            i++;
+        }
+    }
+    
+    return 0;
+}
