@@ -1,0 +1,16 @@
+class Employee:
+    def __init__(self, name, position, salary):
+        self.name = name
+        self.position = position
+        self.salary = salary
+    
+    def change_position(self, new_position):
+        self.position = new_position
+    
+    def increase_salary(self, percent):
+        self.salary += self.salary * percent / 100
+    
+    def info(self):
+        print(f"{self.name}")
+        print(f"{self.position}")
+        print(f"{self.salary}")
