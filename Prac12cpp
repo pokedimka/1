@@ -1,0 +1,302 @@
+import os
+import random
+
+class QuizGame:
+    def __init__(self):
+        self.player_name = "user"
+        self.lives = 3
+        self.score = 0
+        self.question_count = 8
+        self.interface_color = "white"
+        self.colors = {
+            "white": "\033[0m",
+            "red": "\033[91m",
+            "green": "\033[92m",
+            "yellow": "\033[93m",
+            "blue": "\033[94m",
+            "purple": "\033[95m",
+            "cyan": "\033[96m"
+        }
+        
+        # База вопросов
+        self.questions = [
+            {
+                "question": "Системный язык программирования?",
+                "options": ["Python", "C#", "Ruby", "C++"],
+                "correct": 3
+            },
+            {
+                "question": "Какой язык используется для веб-разработки?",
+                "options": ["Java", "HTML", "C++", "Swift"],
+                "correct": 1
+            },
+            {
+                "question": "Что такое API?",
+                "options": ["Тип данных", "Интерфейс программирования приложений", "Язык программирования", "База данных"],
+                "correct": 1
+            },
+            {
+                "question": "Какой оператор используется для сравнения в Python?",
+                "options": ["=", "==", "===", "!="],
+                "correct": 1
+            },
+            {
+                "question": "Что означает ООП?",
+                "options": ["Объектно-ориентированное программирование", "Основные операции процесса", "Общая организация программ", "Оптимальное оформление проекта"],
+                "correct": 0
+            },
+            {
+                "question": "Какой тип данных изменяем в Python?",
+                "options": ["tuple", "string", "list", "int"],
+                "correct": 2
+            },
+            {
+                "question": "Что такое Git?",
+                "options": ["Язык программирования", "Система контроля версий", "Текстовый редактор", "Операционная система"],
+                "correct": 1
+            },
+            {
+                "question": "Какой протокол используется для веб-сайтов?",
+                "options": ["FTP", "HTTP", "SMTP", "TCP"],
+                "correct": 1
+            },
+            {
+                "question": "Что такое SQL?",
+                "options": ["Язык программирования", "База данных", "Язык запросов", "Фреймворк"],
+                "correct": 2
+            },
+            {
+                "question": "Какой символ используется для комментариев в Python?",
+                "options": ["//", "/*", "#", "--"],
+                "correct": 2
+            },
+            {
+                "question": "Что такое CSS?",
+                "options": ["Язык программирования", "Система управления контентом", "Каскадные таблицы стилей", "База данных"],
+                "correct": 2
+            },
+            {
+                "question": "Какой метод добавляет элемент в список Python?",
+                "options": ["add()", "append()", "insert()", "push()"],
+                "correct": 1
+            }
+        ]
+
+    def clear_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    def print_color(self, text, color=None):
+        if color is None:
+            color = self.interface_color
+        color_code = self.colors.get(color, self.colors["white"])
+        print(f"{color_code}{text}{self.colors['white']}")
+
+    def show_welcome(self):
+        self.clear_screen()
+        self.print_color("=" * 50, "cyan")
+        self.print_color("         ДОБРО ПОЖАЛОВАТЬ В ВИКТОРИНУ!", "green")
+        self.print_color("=" * 50, "cyan")
+        print()
+        self.print_color("Проверьте свои знания в сфере IT и программирования!", "yellow")
+        input("\nНажмите Enter для продолжения...")
+
+    def show_menu(self):
+        while True:
+            self.clear_screen()
+            self.print_color("=" * 50, "cyan")
+            self.print_color("             ГЛАВНОЕ МЕНЮ", "green")
+            self.print_color("=" * 50, "cyan")
+            print()
+            self.print_color("1. Начать игру", "yellow")
+            self.print_color("2. Настройки", "yellow")
+            self.print_color("3. Правила", "yellow")
+            self.print_color("4. Выйти", "yellow")
+            print()
+            
+            choice = input("Выберите пункт меню (1-4): ").strip()
+            
+            if choice == "1":
+                self.start_game()
+            elif choice == "2":
+                self.settings_menu()
+            elif choice == "3":
+                self.show_rules()
+            elif choice == "4":
+                self.print_color("Спасибо за игру! До свидания!", "green")
+                break
+            else:
+                self.print_color("Неверный выбор! Попробуйте снова.", "red")
+                input("Нажмите Enter для продолжения...")
+
+    def show_rules(self):
+        while True:
+            self.clear_screen()
+            self.print_color("=" * 50, "cyan")
+            self.print_color("               ПРАВИЛА ИГРЫ", "green")
+            self.print_color("=" * 50, "cyan")
+            print()
+            self.print_color("Основные правила викторины:", "yellow")
+            self.print_color("• Игрок получает очки за правильный ответ на вопрос", "white")
+            self.print_color("• Игрок проходит дальше за правильный ответ", "white")
+            self.print_color("• Игрок теряет жизнь при неправильном ответе", "white")
+            self.print_color("• Изначально у игрока 3 жизни", "white")
+            self.print_color("• Игра продолжается пока есть жизни или не закончатся вопросы", "white")
+            print()
+            self.print_color("Удачи в игре!", "green")
+            print()
+            
+            choice = input("Нажмите 1 для возврата в главное меню: ").strip()
+            if choice == "1":
+                break
+
+    def settings_menu(self):
+        while True:
+            self.clear_screen()
+            self.print_color("=" * 50, "cyan")
+            self.print_color("               НАСТРОЙКИ", "green")
+            self.print_color("=" * 50, "cyan")
+            print()
+            self.print_color(f"1. Редактирование имени игрока: {self.player_name}", "yellow")
+            self.print_color(f"2. Количество вопросов: {self.question_count}", "yellow")
+            self.print_color(f"3. Цвет интерфейса: {self.interface_color}", "yellow")
+            self.print_color("4. Вернуться в главное меню", "yellow")
+            print()
+            
+            choice = input("Выберите пункт (1-4): ").strip()
+            
+            if choice == "1":
+                self.change_player_name()
+            elif choice == "2":
+                self.change_question_count()
+            elif choice == "3":
+                self.change_interface_color()
+            elif choice == "4":
+                break
+            else:
+                self.print_color("Неверный выбор!", "red")
+                input("Нажмите Enter для продолжения...")
+
+    def change_player_name(self):
+        self.clear_screen()
+        self.print_color("=== РЕДАКТИРОВАНИЕ ИМЕНИ ===", "cyan")
+        new_name = input("Введите новое имя игрока: ").strip()
+        if new_name:
+            self.player_name = new_name
+            self.print_color(f"Имя успешно изменено на: {self.player_name}", "green")
+        else:
+            self.print_color("Имя не может быть пустым!", "red")
+        input("Нажмите Enter для продолжения...")
+
+    def change_question_count(self):
+        while True:
+            self.clear_screen()
+            self.print_color("=== ИЗМЕНЕНИЕ КОЛИЧЕСТВА ВОПРОСОВ ===", "cyan")
+            self.print_color("Доступные варианты: 8, 10, 12", "yellow")
+            try:
+                count = int(input("Введите количество вопросов: "))
+                if count in [8, 10, 12]:
+                    self.question_count = count
+                    self.print_color(f"Количество вопросов изменено на: {count}", "green")
+                    break
+                else:
+                    self.print_color("Доступны только значения 8, 10, 12!", "red")
+            except ValueError:
+                self.print_color("Введите корректное число!", "red")
+            input("Нажмите Enter для продолжения...")
+
+    def change_interface_color(self):
+        while True:
+            self.clear_screen()
+            self.print_color("=== ВЫБОР ЦВЕТА ИНТЕРФЕЙСА ===", "cyan")
+            colors_list = list(self.colors.keys())
+            for i, color in enumerate(colors_list, 1):
+                self.print_color(f"{i}. {color}", color)
+            
+            try:
+                choice = int(input(f"\nВыберите цвет (1-{len(colors_list)}): "))
+                if 1 <= choice <= len(colors_list):
+                    self.interface_color = colors_list[choice-1]
+                    self.print_color(f"Цвет интерфейса изменен на: {self.interface_color}", "green")
+                    break
+                else:
+                    self.print_color("Неверный выбор!", "red")
+            except ValueError:
+                self.print_color("Введите корректное число!", "red")
+            input("Нажмите Enter для продолжения...")
+
+    def start_game(self):
+        self.lives = 3
+        self.score = 0
+        questions_to_ask = random.sample(self.questions, self.question_count)
+        current_question = 0
+        
+        while self.lives > 0 and current_question < len(questions_to_ask):
+            self.clear_screen()
+            self.print_color("=" * 50, "cyan")
+            self.print_color(f"[+] Игрок: {self.player_name} | жизни: {self.lives} | очки: {self.score}", "green")
+            self.print_color("=" * 50, "cyan")
+            print()
+            
+            question_data = questions_to_ask[current_question]
+            self.print_color(f"[{current_question + 1}] Вопрос: {question_data['question']}", "yellow")
+            print()
+            
+            # Вывод вариантов ответов
+            options = ['A', 'B', 'C', 'D']
+            for i, option in enumerate(options):
+                self.print_color(f"[{option}] {question_data['options'][i]}", "white")
+            print()
+            
+            # Получение ответа от пользователя
+            while True:
+                user_answer = input("[+] Выбрать ответ (A/B/C/D): ").upper().strip()
+                if user_answer in options:
+                    break
+                self.print_color("Неверный ввод! Используйте A, B, C или D.", "red")
+            
+            # Проверка ответа
+            user_answer_index = options.index(user_answer)
+            if user_answer_index == question_data['correct']:
+                self.score += 10
+                self.print_color("\n✓ Правильный ответ! +10 очков", "green")
+                current_question += 1
+            else:
+                self.lives -= 1
+                correct_answer = options[question_data['correct']]
+                self.print_color(f"\n✗ Неправильный ответ! Правильный ответ: {correct_answer}", "red")
+                self.print_color(f"Потеряна одна жизнь. Осталось жизней: {self.lives}", "red")
+                current_question += 1
+            
+            if self.lives > 0 and current_question < len(questions_to_ask):
+                input("\nНажмите Enter для следующего вопроса...")
+            else:
+                break
+        
+        # Конец игры
+        self.clear_screen()
+        self.print_color("=" * 50, "cyan")
+        self.print_color("           ИГРА ЗАВЕРШЕНА", "green")
+        self.print_color("=" * 50, "cyan")
+        print()
+        
+        if self.lives == 0:
+            self.print_color("К сожалению, вы проиграли!", "red")
+            self.print_color("У вас закончились жизни.", "red")
+        else:
+            self.print_color("Поздравляем! Вы прошли все вопросы!", "green")
+        
+        self.print_color(f"Игрок: {self.player_name}", "yellow")
+        self.print_color(f"Набрано очков: {self.score}", "yellow")
+        self.print_color(f"Осталось жизней: {self.lives}", "yellow")
+        print()
+        
+        input("Нажмите Enter для возврата в главное меню...")
+
+    def run(self):
+        self.show_welcome()
+        self.show_menu()
+
+# Запуск игры
+if __name__ == "__main__":
+    game = QuizGame()
+    game.run()
