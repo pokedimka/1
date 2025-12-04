@@ -1,0 +1,140 @@
+#include <iostream>
+#include <limits>
+using namespace std;
+
+// Функция для очистки консоли
+#ifdef _WIN32
+void clearConsole() {
+    system("cls");
+}
+#else
+void clearConsole() {
+    system("clear");
+}
+#endif
+
+// Функция для очистки буфера ввода
+void clearInputBuffer() {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+// Функция для рисования заполненного квадрата
+void drawFilledSquare(int size, char texture) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            cout << texture << "   ";
+        }
+        cout << endl;
+    }
+}
+
+// Функция для рисования пустого квадрата
+void drawEmptySquare(int size, char texture) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+                cout << texture << "   ";
+            } else {
+                cout << "    ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+// Функция для рисования линии
+void drawLine(int size, char texture) {
+    for (int i = 0; i < size; i++) {
+        cout << texture << "   ";
+    }
+    cout << endl;
+}
+
+void printHeader(const string& title) {
+    cout << "\n[ + ] Фигура: \"" << title << "\"\n\n";
+}
+
+int main() {
+    int choice;
+    char repeat = 'y';
+    
+    while (repeat == 'y' || repeat == 'Y') {
+        clearConsole();
+        
+        // Главное меню
+        cout << "[ + ] Программа - \"Геометрические фигуры\"\n\n";
+        cout << "[ 1 ] Линия\n";
+        cout << "[ 2 ] Квадрат\n\n";
+        
+        // Ввод с проверкой
+        do {
+            cout << "[ + ] Выберите фигуру: ";
+            cin >> choice;
+            if (cin.fail() || (choice != 1 && choice != 2)) {
+                cout << "Ошибка! Введите 1 или 2\n";
+                clearInputBuffer();
+            }
+        } while (choice != 1 && choice != 2);
+        
+        clearConsole();
+        
+        if (choice == 1) {
+            // Линия
+            printHeader("Линия");
+            
+            int size;
+            char texture;
+            
+            cout << "[ + ] Размер: ";
+            cin >> size;
+            cout << "[ + ] Текстура: ";
+            cin >> texture;
+            
+            cout << "\n[ + ] Результат:\n\n";
+            drawLine(size, texture);
+            
+        } else if (choice == 2) {
+            // Квадрат
+            printHeader("Квадрат");
+            
+            int type;
+            cout << "[ 1 ] Заполненный\n";
+            cout << "[ 2 ] Пустой\n\n";
+            
+            // Ввод типа квадрата с проверкой
+            do {
+                cout << "[ + ] Выберите тип: ";
+                cin >> type;
+                if (cin.fail() || (type != 1 && type != 2)) {
+                    cout << "Ошибка! Введите 1 или 2\n";
+                    clearInputBuffer();
+                }
+            } while (type != 1 && type != 2);
+            
+            int size;
+            char texture;
+            
+            cout << "\n[ + ] Размер: ";
+            cin >> size;
+            cout << "[ + ] Текстура: ";
+            cin >> texture;
+            
+            cout << "\n[ + ] Результат:\n\n";
+            
+            if (type == 1) {
+                drawFilledSquare(size, texture);
+            } else {
+                drawEmptySquare(size, texture);
+            }
+        }
+        
+        // Запрос на повтор
+        cout << "\n\nХотите нарисовать еще одну фигуру? (y/n): ";
+        cin >> repeat;
+        clearInputBuffer();
+    }
+    
+    cout << "\nСпасибо за использование программы!\n";
+    return 0;
+}
