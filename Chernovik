@@ -1,0 +1,156 @@
+Вот решения всех 10 задач на Python с использованием указанных циклов:
+
+1. Факториал через for:
+
+```python
+def factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+print(factorial(5))  # 120
+```
+
+2. Числа Фибоначчи через while:
+
+```python
+def fibonacci(n):
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    
+    a, b = 0, 1
+    count = 2
+    while count <= n:
+        a, b = b, a + b
+        count += 1
+    return b
+
+print(fibonacci(7))  # 13
+```
+
+3. Сумма чисел в списке через for:
+
+```python
+def sum_list(numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+print(sum_list([1, 2, 3, 4, 5]))  # 15
+```
+
+4. Минимальный элемент через for:
+
+```python
+def find_min(numbers):
+    if not numbers:
+        return None
+    min_num = numbers[0]
+    for num in numbers:
+        if num < min_num:
+            min_num = num
+    return min_num
+
+print(find_min([3, 1, 4, 1, 5]))  # 1
+```
+
+5. Проверка простого числа через for:
+
+```python
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+print(is_prime(17))  # True
+print(is_prime(15))  # False
+```
+
+6. Обратный порядок строки через while:
+
+```python
+def reverse_string(s):
+    reversed_str = ""
+    index = len(s) - 1
+    while index >= 0:
+        reversed_str += s[index]
+        index -= 1
+    return reversed_str
+
+print(reverse_string("hello"))  # "olleh"
+```
+
+7. Таблица умножения через вложенные for:
+
+```python
+def multiplication_table():
+    for i in range(1, 11):
+        for j in range(1, 11):
+            print(f"{i} x {j} = {i*j}", end="\t")
+        print()
+
+multiplication_table()
+```
+
+8. Сортировка пузырьком через while:
+
+```python
+def bubble_sort(arr):
+    n = len(arr)
+    swapped = True
+    
+    while swapped:
+        swapped = False
+        i = 0
+        while i < n - 1:
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True
+            i += 1
+        n -= 1  # Оптимизация - последний элемент уже на своем месте
+    return arr
+
+print(bubble_sort([64, 34, 25, 12, 22, 11, 90]))  # [11, 12, 22, 25, 34, 64, 90]
+```
+
+9. Числа Армстронга через for:
+
+```python
+def armstrong_numbers(limit):
+    for num in range(1, limit + 1):
+        digits = str(num)
+        power = len(digits)
+        sum_of_powers = 0
+        
+        for digit_char in digits:
+            digit = int(digit_char)
+            sum_of_powers += digit ** power
+            
+        if sum_of_powers == num:
+            print(num)
+
+armstrong_numbers(1000)  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 153, 370, 371, 407
+```
+
+10. Проверка палиндрома через for:
+
+```python
+def is_palindrome(s):
+    s = s.lower().replace(" ", "")  # Игнорируем регистр и пробелы
+    for i in range(len(s) // 2):
+        if s[i] != s[len(s) - 1 - i]:
+            return False
+    return True
+
+print(is_palindrome("А роза упала на лапу Азора"))  # True
+print(is_palindrome("hello"))  # False
+```
+
+Все решения соответствуют требованиям использования указанных типов циклов и покрывают основные алгоритмические задачи.
