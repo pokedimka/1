@@ -102,3 +102,52 @@ int main() {
     return 0;
 }
     
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    const string correct_password = "12345";
+    string user_input;
+    cout << "Проверка пароля" << endl;
+    cout << "[ + ] Введите пароль: ";
+    cin >> user_input;
+    while (user_input != correct_password) {
+        cout << "[ - ] Неверный пароль!" << endl;
+        cout << "[ + ] Введите пароль: ";
+        cin >> user_input;
+    }
+    cout << "[ + ] Добро пожаловать!" << endl;
+
+    return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Среднее арифметическое" << endl;
+    double sum = 0.0;
+    int count = 0;
+    double number;
+
+    while (true) {
+        cout << "[ + ] Введите число: ";
+        cin >> number;
+
+        if (number == 0) {
+            break;
+        }
+        sum += number;
+        count++;
+    }
+    if (count > 0) {
+        double average = sum / count;
+        cout << "[ + ] Среднее арифметическое: " << average << endl;
+    }
+    else {
+        cout << "[ + ] Не было введено ни одного числа (кроме 0)" << endl;
+    }
+
+    return 0;
+}
